@@ -1,0 +1,11 @@
+web_service:
+    resource: "@WebServiceBundle/Resources/config/routing.yml"
+    prefix:   /
+
+entity:
+    resource: "@EntityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

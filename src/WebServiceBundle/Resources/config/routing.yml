@@ -1,0 +1,3 @@
+web_service_homepage:
+    path:     /
+    defaults: { _controller: WebServiceBundle:Default:index }
