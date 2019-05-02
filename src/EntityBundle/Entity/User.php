@@ -50,7 +50,7 @@ class User implements Entity
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="WorkOut" )
+     * @ORM\OneToMany(targetEntity="WorkOut" , mappedBy="user")
      */
     private $workouts;
     /**
@@ -167,6 +167,24 @@ class User implements Entity
     {
         return $this->password;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkouts()
+    {
+        return $this->workouts;
+    }
+
+    /**
+     * @param mixed $workouts
+     */
+    public function setWorkouts($workouts)
+    {
+        $this->workouts = $workouts;
+    }
+
+
 
     public function fromJsonObject($oj)
     {

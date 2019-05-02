@@ -47,7 +47,7 @@ class WorkOut
      */
     private $exercices;
     /**
-     * @ORM\ManyToOne(targetEntity="User", mappedBy="workouts")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="workouts")
      */
     private $user;
 
@@ -132,5 +132,39 @@ class WorkOut
     {
         return $this->time;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getExercices()
+    {
+        return $this->exercices;
+    }
+
+    /**
+     * @param mixed $exercices
+     */
+    public function setExercices($exercices)
+    {
+        $this->exercices = $exercices;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
 }
 
