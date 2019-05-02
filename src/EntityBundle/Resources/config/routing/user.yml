@@ -1,0 +1,4 @@
+user_new:
+    path:     /new
+    defaults: { _controller: "EntityBundle:User:new" }
+    methods:  [GET, POST]

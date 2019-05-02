@@ -1,3 +1,7 @@
 entity_homepage:
     path:     /
     defaults: { _controller: EntityBundle:Default:index }
+
+entities_user:
+    resource: "@EntitiesBundle/Resources/config/routing/user.yml"
+    prefix:   /user
