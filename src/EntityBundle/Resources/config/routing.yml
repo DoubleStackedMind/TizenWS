@@ -3,5 +3,9 @@ entity_homepage:
     defaults: { _controller: EntityBundle:Default:index }
 
 entities_user:
-    resource: "@EntitiesBundle/Resources/config/routing/user.yml"
+    resource: "@EntityBundle/Resources/config/routing/user.yml"
     prefix:   /user
+
+entities_workout:
+    resource: "@EntityBundle/Resources/config/routing/workout.yml"
+    prefix:   /workout

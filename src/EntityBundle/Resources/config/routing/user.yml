@@ -2,3 +2,7 @@ user_new:
     path:     /new
     defaults: { _controller: "EntityBundle:User:new" }
     methods:  [GET, POST]
+user_index:
+    path:     /retrieve
+    defaults: { _controller: "EntityBundle:User:index" }
+    methods:  [GET, POST]

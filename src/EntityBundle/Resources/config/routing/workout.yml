@@ -1,0 +1,4 @@
+workout_new:
+    path:     /new
+    defaults: { _controller: "EntityBundle:Workout:new" }
+    methods:  [GET, POST]
