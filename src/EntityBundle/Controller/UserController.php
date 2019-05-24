@@ -29,9 +29,9 @@ class UserController extends Controller
         */
 
    //     $date = \DateTime::createFromFormat("dd-MM-yyyy",$request->get("birthdate"));
-          //  $date = new \DateTime();
-           // $date->setTimestamp($request->get('birthdate'));
-           // $user->setBirthdate($date);
+            $date = new \DateTime();
+          //  $date->setTimestamp($request->get('birthdate'));
+           $user->setBirthdate($date);
             $user->setEmail($request->get("email"));
             $user->setPassword($request->get("password"));
             $user->setName($request->get("name"));

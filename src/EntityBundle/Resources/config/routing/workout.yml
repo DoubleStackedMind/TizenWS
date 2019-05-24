@@ -2,3 +2,7 @@ workout_new:
     path:     /new
     defaults: { _controller: "EntityBundle:Workout:new" }
     methods:  [GET, POST]
+workout_all:
+    path:     /getAll
+    defaults: { _controller: "EntityBundle:Workout:getAll" }
+    methods:  [GET, POST]
