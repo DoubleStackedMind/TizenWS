@@ -1,0 +1,14 @@
+post_index:
+    path:     /retrieve
+    defaults: { _controller: "EntityBundle:Post:index" }
+    methods:  [GET, POST]
+
+post_new:
+    path:     /new
+    defaults: { _controller: "EntityBundle:Post:new" }
+    methods:  [GET, POST]
+
+post_remove:
+    path:     /remove
+    defaults: { _controller: "EntityBundle:Post:removes" }
+    methods:  [GET, POST]

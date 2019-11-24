@@ -1,0 +1,9 @@
+comments_index:
+    path:     /retrieve
+    defaults: { _controller: "EntityBundle:Comments:index" }
+    methods:  [GET, POST]
+
+comments_new:
+    path:     /new
+    defaults: { _controller: "EntityBundle:Comments:new" }
+    methods:  [GET, POST]
