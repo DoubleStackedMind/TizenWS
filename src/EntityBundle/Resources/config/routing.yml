@@ -9,3 +9,11 @@ entities_user:
 entities_workout:
     resource: "@EntityBundle/Resources/config/routing/workout.yml"
     prefix:   /workout
+
+entities_post:
+    resource: "@EntityBundle/Resources/config/routing/post.yml"
+    prefix:   /post
+
+entities_comments:
+    resource: "@EntityBundle/Resources/config/routing/comments.yml"
+    prefix:   /comments

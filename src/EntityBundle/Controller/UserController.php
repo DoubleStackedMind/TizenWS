@@ -2,7 +2,9 @@
 
 namespace EntityBundle\Controller;
 
-use DateTime;
+
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use EntityBundle\Entity\User;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -20,24 +22,18 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $data=array("result"=>"missing params");
-        if($request->get("username")!=null&&$request->get("password")!=null&&$request->get("email")!=null&&$request->get("name")!=null)
+        if($request->get("firstname")!=null&&$request->get("lastname")!=null&&$request->get("password")!=null&&$request->get("email")!=null)
         { $user = new User();
-        $user->setUsername($request->get("username"));
-        /*    $var = strtotime($request->get("birthdate"));
-            $newValue = date('dd-MM-yyyy', $var);
-
-        */
-
-   //     $date = \DateTime::createFromFormat("dd-MM-yyyy",$request->get("birthdate"));
+        $user->setFirstName($request->get("firstname"));
             $date = new \DateTime();
-          //  $date->setTimestamp($request->get('birthdate'));
-           $user->setBirthdate($date);
+           $user->setCreationDate($date);
             $user->setEmail($request->get("email"));
             $user->setPassword($request->get("password"));
-            $user->setName($request->get("name"));
+            $user->setLastName($request->get("lastname"));
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
             $data=array("result"=>"ok");
         }
      return new JsonResponse($data);
@@ -46,29 +42,24 @@ class UserController extends Controller
     /**
      * Lists one user entities as JSONObject.
      * @param Request $request
-     * @return Response
-     */
-    public function indexAction(Request $request)
-    {
-        $params=array();
-        $one=null;
-        if($request->request->has('id'))
-            $params["id"]=$request->get("id");
-        if($request->request->has('password'))
-            $params["password"]=$request->get("password");
-        if($request->request->has('email'))
-            $params["email"]=$request->get("email");
-        if($request->request->has('name'))
-            $params["username"]=$request->get("username");
-        if(count($params)!=0) {
-            $em = $this->getDoctrine()->getManager();
-            $one = $em->getRepository('EntityBundle:User')->findOneBy($params);
-        }
+         * @return Response
+         */
+        public function indexAction(Request $request)
+        {
+            $params=array();
+                $params["password"]=$request->get("password");
+                $params["email"]=$request->get("email");
+                $em = $this->getDoctrine()->getManager();
+                $one = $em->getRepository('EntityBundle:User')->findOneBy(array('email' => $request->get("email"),'password' => $request->get('password')));
         $data = array();
+
         if($one!=null) {
-            $data[] = array("id" => $one->getId(), "email" => $one->getEmail(), "password" => $one->getPassword(),"username"=>$one->getUsername());
+            $serializer =  new Serializer([new ObjectNormalizer()]);
+            $formatted =$serializer->normalize($one);
         }else
          throw new AccessDeniedException("no data found");
-        return new JsonResponse($data);
+        return new JsonResponse($formatted);
     }
+
 }
+

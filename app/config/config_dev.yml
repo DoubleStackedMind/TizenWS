@@ -39,3 +39,9 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+swiftmailer:
+    # ... your other config
+    stream_options:
+        ssl:
+            allow_self_signed: true
+            verify_peer: false

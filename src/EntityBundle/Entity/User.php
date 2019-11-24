@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="EntityBundle\Repository\UserRepository")
  */
-class User implements Entity
+class User
 {
     /**
      * @var int
@@ -24,16 +24,16 @@ class User implements Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
      */
-    private $name;
+    private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255)
      */
-    private $username;
+    private $lastname;
 
     /**
      * @var string
@@ -42,12 +42,6 @@ class User implements Entity
      */
     private $email;
 
-    /**
-     * @var /DateTime
-     *
-     * @ORM\Column(name="birthdate", type="datetime", length=255)
-     */
-    private $birthdate;
 
     /**
      * @var string
@@ -57,9 +51,13 @@ class User implements Entity
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="WorkOut" , mappedBy="user")
+     * @var string
+     *
+     * @ORM\Column(name="creationdate", type="datetime")
      */
-    private $workouts;
+    private $creationdate;
+
+
     /**
      * Get id
      *
@@ -86,9 +84,9 @@ class User implements Entity
      *
      * @return User
      */
-    public function setName($name)
+    public function setFirstName($name)
     {
-        $this->name = $name;
+        $this->firstname = $name;
 
         return $this;
     }
@@ -98,9 +96,34 @@ class User implements Entity
      *
      * @return string
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->firstname;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setLastName($name)
+    {
+        $this->lastname = $name;
+
+        return $this;
+    }
+
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastname;
     }
 
     /**
@@ -128,30 +151,6 @@ class User implements Entity
     }
 
     /**
-     * Set birthdate
-     *
-     * @param string $birthdate
-     *
-     * @return User
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
-
-        return $this;
-    }
-
-    /**
-     * Get birthdate
-     *
-     * @return \DateTime
-     */
-    public function getBirthdate()
-    {
-        return $this->birthdate;
-    }
-
-    /**
      * Set password
      *
      * @param string $password
@@ -176,85 +175,27 @@ class User implements Entity
     }
 
     /**
-     * @return mixed
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
      */
-    public function getWorkouts()
+    public function setCreationDate($password)
     {
-        return $this->workouts;
+        $this->creationdate = $password;
+
+        return $this;
     }
 
     /**
-     * @param mixed $workouts
-     */
-    public function setWorkouts($workouts)
-    {
-        $this->workouts = $workouts;
-    }
-
-    /**
+     * Get password
+     *
      * @return string
      */
-    public function getUsername()
+    public function getCreationDate()
     {
-        return $this->username;
-    }
-
-    /**
-     * @param string $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-
-
-
-    public function fromJsonObject($oj)
-    {
-        $this->fromPostArray(json_decode(html_entity_decode($oj), true));
-    }
-
-    public function toJsonObject($fetchType)
-    {
-        if ($fetchType == "Lazy")
-            return array(
-                "id" => $this->getId(),
-                "name" => $this->getName(),
-                "email" => $this->getEmail(),
-                "password" => $this->getPassword()
-
-            );
-        else if ($fetchType == "Eager") {
-            $orders = array();
-            $points = array();
-            foreach ($this->getOrders() as $order) {
-                $orders[] = $order->toJsonObject();
-            }
-            foreach ($this->getBoughtPoints() as $point) {
-                $points[] = $point->toJsonObject();
-            }
-            return array(
-                "id" => $this->getId(),
-                "email" => $this->getEmail(),
-                "name" => $this->getName(),
-                "password" => $this->getPassword(),
-                "birthDate" => $this->getBirthDate()->getTimestamp(),
-
-            );
-        }
-        return "Wrong fetchType";
-
-    }
-
-    public function fromPostArray($pa)
-    {
-        $date = new \DateTime();
-        $date->setTimestamp($pa['birthDate']);
-        $this->setId($pa['id']);
-        $this->setEmail($pa['email']);
-        $this->setBirthDate($date);
-        $this->setPassword($pa['password']);
+        return $this->creationdate;
     }
 }
 
